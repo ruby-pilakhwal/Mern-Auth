@@ -164,7 +164,7 @@ export const verifyEmail = async (req, res) => {
    
         const {userId, otp} = req.body;
         //check if the user and otp are provided
-        if(!user || !otp){
+        if(!userId || !otp){
             return res.json({success:false, message: 'missing fields'});
         }
         try{
@@ -195,7 +195,16 @@ export const verifyEmail = async (req, res) => {
         }catch(error){
             res.status(500).json({success: false, message: error.message});
         }
-    
+}
 
+
+//*check if the user is authenticateds
+export const isAuthenticated = async (req, res) => {
+   try{
+   
+     res.json({success:true, message: 'User is authenticated'});
+   }catch(error){
+    res.status(500).json({success: false, message: error.message});
+   }
 }
 
