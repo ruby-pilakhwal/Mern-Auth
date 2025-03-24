@@ -222,7 +222,7 @@ export const sendResetOtp = async (req, res) => {
         }
         //generate a 6 digit otp
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
-        user.resetOtp = otp; 
+        user.reserOtp = otp; 
         user.resetOtpExpiry = Date.now() + 15 * 60 * 1000; //1 minutes
         await user.save(); //save the user to the database
           
@@ -252,7 +252,7 @@ export const resetPassword = async (req, res) => {
         if(!user){
             return res.json({success:false, message: 'User not found'});
         }
-        if(user.resetOtp === '' || user.resetOtp !== otp){ 
+        if(user.reserOtp === '' || user.reserOtp !== otp){ 
             return res.json({success:false, message: 'Invalid OTP'});
         }
 
@@ -265,7 +265,7 @@ export const resetPassword = async (req, res) => {
 
         //update the user's password
         user.password = hashedPassword;
-        user.resetOtp = '';
+        user.reserOtp = '';
         user.resetOtpExpiry = 0;
         await user.save(); //save the user to the database
 

@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, login, logout, sendVerifyOtp, verifyEmail, isAuthenticated } from '../contollers/AuthController.js';
+import { register, login, logout, sendVerifyOtp, verifyEmail, isAuthenticated , sendResetOtp, resetPassword} from '../contollers/AuthController.js';
 import userAuth from '../middleware/userAuth.js';
 
 //express.Router() creates a separate, modular route handler.
@@ -13,7 +13,8 @@ authRouter.post('/logout', logout); //logout a user
 authRouter.post('/send-verify-otp', userAuth,sendVerifyOtp); //verify the otp
 authRouter.post('/verify-account', userAuth,verifyEmail); //verify the email
 authRouter.post('/is-auth', userAuth,isAuthenticated); //check if the user is authenticated
-
+authRouter.post('/send-reset-otp', sendResetOtp); //send a reset otp to the user's email
+authRouter.post('/reset-password', resetPassword); //reset the user's password
 
 
 export default authRouter;
