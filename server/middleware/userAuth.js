@@ -16,6 +16,8 @@ const userAuth = async (req, res, next) => {
         }else{
             return res.status(401).json({success: false, message: 'Unauthorized'});
         }
+       //if the token is valid, continue to the next middleware
+        next();
         
 
 
@@ -24,3 +26,5 @@ const userAuth = async (req, res, next) => {
     }
     
 }
+
+export default userAuth;
