@@ -4,7 +4,7 @@ import 'dotenv/config';  //load environment variables from .env file
 import cookieParser from "cookie-parser"; //middleware to parse cookies from the request
 import connectDB from "./config/mongodb.js";
 import authRoutes from "./routes/authRoutes.js";
-
+import userRoutes from "./routes/userRoutes.js";
 const app = express();
 const port = process.env.PORT || 5000; //port to listen on
 connectDB();                  //connect to the database
@@ -27,6 +27,8 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoutes); //use the authRoutes for all requests to the /api/auth endpoint
 //any request that starts with the path /api/auth will be handled by the authRoutes middleware.
 
+app.use('/api/user', userRoutes);
+    
 
 
 
