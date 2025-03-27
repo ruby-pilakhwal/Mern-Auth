@@ -7,8 +7,6 @@ const Navbar = () => {
     // We are using it here to navigate to the login page when the user clicks on the login button
     // The navigate function takes one argument which is the path to navigate to
     
-    
-    
     const navigate = useNavigate()
   return (
     <div className='w-full flex justify-between items-center p-4 sm:p-6 md:p-8 lg:p-10 sm:px-24 absolute top-0'>
