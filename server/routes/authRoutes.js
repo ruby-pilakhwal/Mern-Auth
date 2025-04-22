@@ -1,5 +1,6 @@
 import express from 'express';
-import { register, login, logout, sendVerifyOtp, verifyEmail, isAuthenticated , sendResetOtp, resetPassword} from '../contollers/AuthController.js';
+
+import { register, login, logout, sendVerifyOtp, verifyEmail, isAuthenticated , sendResetOtp, resetPassword } from '../controllers/AuthController.js';
 import userAuth from '../middleware/userAuth.js';
 
 //express.Router() creates a separate, modular route handler.
