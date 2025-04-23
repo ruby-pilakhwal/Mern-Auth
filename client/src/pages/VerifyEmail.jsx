@@ -19,7 +19,21 @@ const VerifyEmail = () => {
       inputRefs.current[index-1].focus();
     }
   }
+  
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const paste= e.clipboardData.getData('text');
 
+    const pastArray = paste.split('');
+    pastArray.forEach((char, index) => {
+      if (inputRefs.current[index]) {
+        inputRefs.current[index].value = char;
+        if (index < inputRefs.current.length - 1) {
+          inputRefs.current[index + 1].focus();
+        }
+      }
+    });
+  };
   
 
   
@@ -30,7 +44,9 @@ const VerifyEmail = () => {
       <form action="" className='bg-slate-900 p-10 rounded-lg shadow-lg w-96 text-sm'>
         <h1 className='text-2xl font-semibold text-white text-center mb-4'>Email Verify OTP</h1>
         <p className='text-center mb-6 text-indigo-300'>Enter the 6 digit OTP sent to your email</p>
-        <div className='flex justify-between mb-8'>
+        <div className='flex justify-between mb-8'
+        onPaste={handlePaste}
+        >
           {/* The below code is creating an array of 6 numbers, and then for each number in the array, 
           it is creating an input field with the type of number. The result is 6 input fields, that 
           allows the user to input the 6 digit OTP sent to their email. */}
@@ -40,7 +56,7 @@ const VerifyEmail = () => {
             ref={e=>inputRefs.current[index]=e} //ref is used to access the input element
             onInput={(e)=>{
               handleInput(e,index)
-            }}
+            }} 
             onKeyDown={(e)=>{
               handleKeydown(e,index)
             }}
