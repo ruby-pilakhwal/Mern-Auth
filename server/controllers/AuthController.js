@@ -200,13 +200,35 @@ export const verifyEmail = async (req, res) => {
 
 //*check if the user is authenticateds
 export const isAuthenticated = async (req, res) => {
-   try{
-   
-     res.json({success:true, message: 'User is authenticated'});
-   }catch(error){
-    res.status(500).json({success: false, message: error.message});
-   }
-}
+    try {
+        const { token } = req.cookies;
+        
+        if (!token) {
+            return res.json({ success: false, message: 'Not authenticated' });
+        }
+
+        const tokenDecode = jwt.verify(token, process.env.JWT_SECRET);
+        
+        if (tokenDecode.id) {
+            const user = await UserModel.findById(tokenDecode.id);
+            if (user) {
+                return res.json({ 
+                    success: true, 
+                    message: 'User is authenticated',
+                    user: {
+                        name: user.name,
+                        email: user.email,
+                        isAccountVerified: user.isAccountVerified
+                    }
+                });
+            }
+        }
+
+        return res.json({ success: false, message: 'Not authenticated' });
+    } catch (error) {
+        return res.json({ success: false, message: 'Not authenticated' });
+    }
+};
 
 //*Send Password Reset otp
 //send a reset otp to the user's email
