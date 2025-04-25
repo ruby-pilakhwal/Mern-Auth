@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { assets } from '../assets/assets'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
+import { toast } from 'react-toastify';
+// import { useContext } from 'react'
+import { AppContent } from '../context/AppContext'
+
 
 const VerifyEmail = () => {
+  axios.defaults.withCredentials = true;
+  const {backendUrl,isLoggedin,userData,getUserDetails} = useContext(AppContent);
   const navigate = useNavigate()
   // const [otp, setOtp] = useState('');
   const inputRefs= React.useRef([]);
@@ -34,6 +41,27 @@ const VerifyEmail = () => {
       }
     });
   };
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const otpArray = inputRefs.current.map(e => e.value); //convert array of input elements to array of values
+      const otp = otpArray.join('');
+
+      const {data}=await axios.post(backendUrl + '/api/auth/verify-account', { otp })
+      if(data.success){
+        toast.success(data.message);
+        getUserDetails();
+        navigate('/');
+      }else{
+        toast.error(data.message);
+      }
+ 
+    } catch (error) {
+      toast.error(error.message);
+    }
+     
+   };
   
 
   
@@ -41,7 +69,8 @@ const VerifyEmail = () => {
     <div className='flex  items-center justify-center min-h-screen px-6 sm:px-0 bg-gradient-to-br from-blue-200 to-purple-400 '>
       <img onClick={() => navigate('/')} className='absolute top-5 left-5 sm:left-20 top-5 w-28 sm:w-32 cursor-pointer' 
       src={assets.logo} alt="" />
-      <form action="" className='bg-slate-900 p-10 rounded-lg shadow-lg w-96 text-sm'>
+      <form onSubmit={handleSubmit}
+      className='bg-slate-900 p-10 rounded-lg shadow-lg w-96 text-sm'>
         <h1 className='text-2xl font-semibold text-white text-center mb-4'>Email Verify OTP</h1>
         <p className='text-center mb-6 text-indigo-300'>Enter the 6 digit OTP sent to your email</p>
         <div className='flex justify-between mb-8'

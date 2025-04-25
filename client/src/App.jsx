@@ -15,6 +15,7 @@ function App() {
         <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
+      <ToastContainer />
     </>
   )
 }
