@@ -78,7 +78,7 @@ const Login = () => {
             {/* <label htmlFor="password">Password</label> */}
             <input onChange={(e) => setPassword(e.target.value)} value={password} className='bg-transparent outline-none' type="password" id="password" name="password" placeholder='Enter your password' required />
         </div>
-        <p onClick={() => navigate('/resetpassword')} className='mb-4 text-indigo-500 cursor-pointer text-sm'>Forgot Password?</p>
+        <p onClick={() => navigate('/reset-password')} className='mb-4 text-indigo-500 cursor-pointer text-sm'>Forgot Password?</p>
         <button className='w-full bg-indigo-500 text-white py-2.5 rounded-full'>{state}</button>
      </form>
      {state === 'Sign Up' ? (
