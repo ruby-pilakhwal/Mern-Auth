@@ -27,17 +27,23 @@ export const register = async (req, res) => { //register a new user
         const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '7d'}); //sign the token with the user's id and the secret key
 
         //send the token to the client
-        res.cookie('token', token,{ //create a cookie with the token
-            httpOnly: true, //prevent client side js from accessing the cookie , The cookie cannot be accessed by JavaScript (document.cookie)
-            secure: process.env.NODE_ENV === 'production', //only send the cookie over https in production
+        // res.cookie('token', token,{ //create a cookie with the token
+        //     httpOnly: true, //prevent client side js from accessing the cookie , The cookie cannot be accessed by JavaScript (document.cookie)
+        //     secure: process.env.NODE_ENV === 'production', //only send the cookie over https in production
            
-            //sameSite: 'none' //Allows cookies to be sent in cross-site requests (needed for frontend-backend on different domains)
-            //sameSite: 'strict' //prevents the cookie from being sent to other sites in development
-            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', 
+        //     //sameSite: 'none' //Allows cookies to be sent in cross-site requests (needed for frontend-backend on different domains)
+        //     //sameSite: 'strict' //prevents the cookie from being sent to other sites in development
+        //     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', 
             
-            maxAge: 7 * 24 * 60 * 60 * 1000 //7 days
+        //     maxAge: 7 * 24 * 60 * 60 * 1000 //7 days
             
-        });
+        // });
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', // true on Render
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+            maxAge: 7 * 24 * 60 * 60 * 1000
+          });
 
           //send a welcome email to the user
         //create a mail options object
