@@ -61,12 +61,20 @@ const ResetPassword = () => {
     }
   }
 
-  const onSubmitOtp= async (e)=>{
+  const onSubmitOtp = async (e) => {
     e.preventDefault();
-    const otpArray=inputRefs.current.map(e=>e.value)
-    setOtp(otpArray.join(''))
-    setIsOtpSubmitted(true);
-   
+    const otpArray = inputRefs.current.map(e => e.value);
+    setOtp(otpArray.join(''));
+    try {
+      const { data } = await axios.post(backendUrl + '/api/auth/verify-reset-otp', { email, otp });
+      if (data.success) {
+        setIsOtpSubmitted(true);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
   }
 
   const onSubmitNewPassword = async (e) => {
@@ -124,7 +132,7 @@ const ResetPassword = () => {
       )}
 
       {/* otp input */}
-      {!isOtpSubmitted && isEmailSend && (
+      {isEmailSend && !isOtpSubmitted && (
         <form onSubmit={onSubmitOtp} className="bg-slate-900 p-10 rounded-lg shadow-lg w-96 text-sm">
           <h1 className="text-2xl font-semibold text-white text-center mb-4">
             Reset Password OTP
@@ -170,9 +178,8 @@ const ResetPassword = () => {
       </form>
       )}
 
-
       {/* enterPassword */}
-      {isOtpSubmitted && isEmailSend && (
+      {isOtpSubmitted && (
       <form onSubmit={onSubmitNewPassword} className="bg-slate-900 p-10 rounded-lg shadow-lg w-96 text-sm">
         <h1 className="text-2xl font-semibold text-white text-center mb-4">
           New Password

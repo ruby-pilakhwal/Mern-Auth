@@ -266,6 +266,31 @@ export const sendResetOtp = async (req, res) => {
     }
 }
 
+//*verify reset otp
+export const verifyResetOtp = async (req, res) => {
+    const {email, otp} = req.body;
+    if(!email || !otp){
+        return res.json({success:false, message: 'missing fields'});
+    }
+    try{
+        const user = await UserModel.findOne({email});
+        if(!user){
+            return res.json({success:false, message: 'User not found'});
+        }
+        if(user.reserOtp === '' || user.reserOtp !== otp){ 
+            return res.json({success:false, message: 'Invalid OTP'});
+        }
+
+        if(user.resetOtpExpiry < Date.now()){
+            return res.json({success:false, message: 'OTP expired'});
+        }
+
+        res.json({success:true, message: 'OTP verified successfully'});
+    }catch(error){
+        res.status(500).json({success: false, message: error.message});
+    }
+}
+
 //*reset user passwords
 export const resetPassword = async (req, res) => {
     const {email, otp, newPassword} = req.body;

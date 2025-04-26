@@ -35,20 +35,24 @@ const Login = () => {
                 toast.error(data.message);
               }
           }else{
-            const{data}= await axios.post(backendUrl+'/api/auth/login', {email, password});
-            if(data.success){
+            const response = await axios.post(backendUrl+'/api/auth/login', {email, password});
+            if(response.data.success){
               setIsLoggedin(true);
               getUserDetails();
               navigate('/');
             }else{
-              toast.error(data.message);
+              toast.error(response.data.message);
             }
 
           }
           
            
         } catch (error) {
-          toast.error(error.message);
+          if (error.response && error.response.data) {
+            toast.error(error.response.data.message);
+          } else {
+            toast.error('An error occurred. Please try again.');
+          }
         }
     };
     return (  
