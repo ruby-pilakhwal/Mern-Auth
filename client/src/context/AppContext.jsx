@@ -15,8 +15,7 @@ export const AppContextProvider = (props) => {
 
   const getUserDetails = async () => {
     try {
-      const { data } = await axios.get(backendUrl + '/api/user/data');
-      if (data.success) {
+      const { data } = await axios.get(backendUrl + '/api/user/data', { withCredentials: true });      if (data.success) {
         setUserData(data.user);
       } else {
         // Don't show error for unauthorized access
@@ -36,7 +35,7 @@ export const AppContextProvider = (props) => {
 
   const getAuthState = async () => {
     try {
-      const { data } = await axios.get(backendUrl + '/api/auth/is-auth');
+      const { data } = await axios.get(backendUrl + '/api/auth/is-auth', { withCredentials: true });
       if (data.success) {
         setIsLoggedin(true);
         getUserDetails();
