@@ -93,118 +93,97 @@ const ResetPassword = () => {
   }
 
   return (
-    <div className="flex  items-center justify-center min-h-screen px-6 sm:px-0 bg-gradient-to-br from-blue-200 to-purple-400 ">
+    <div className="flex items-center justify-center min-h-screen px-6 sm:px-0 bg-gradient-to-br from-indigo-300 via-purple-200 to-pink-200">
       <img
         onClick={() => navigate("/")}
-        className="absolute top-5 left-5 sm:left-20 top-5 w-28 sm:w-32 cursor-pointer"
-        src={assets.logo}
-        alt=""
+        className="absolute top-5 left-5 sm:left-20 w-16 sm:w-20 md:w-24 lg:w-28 rounded-lg cursor-pointer"
+        src={assets.logoImg}
+        alt="Logo"
       />
-
-      {/* enter email id */}
       {!isEmailSend && (
         <form onSubmit={onSubmitEmail}
-        className="bg-slate-900 p-10 rounded-lg shadow-lg w-96 text-sm">
-          <h1 className="text-2xl font-semibold text-white text-center mb-4">
+          className="bg-white/30 backdrop-blur-xl p-10 rounded-3xl shadow-2xl w-96 border-2 border-gradient-to-r from-indigo-400 via-purple-400 to-pink-300 text-sm">
+          <h1 className="text-2xl font-extrabold text-center mb-4 bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-400 bg-clip-text text-transparent animate-gradient-x">
             Reset Password
           </h1>
-          <p className="text-center mb-6 text-indigo-300">
+          <p className="text-center mb-6 text-indigo-600/80">
             Enter your registered email address
           </p>
-          <div className="mb-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#333A5C] text-white">
-            <img src={assets.mail_icon} alt="" className="w-3 h-3" />
+          <div className="mb-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-white/60 border border-indigo-200 shadow-inner focus-within:ring-2 focus-within:ring-pink-300 text-indigo-900">
+            <img src={assets.mail_icon} alt="" className="w-4 h-4" />
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="bg-transparent outline-none text-whites"
+              className="bg-transparent outline-none text-indigo-900 placeholder-indigo-400 font-medium flex-1"
               placeholder="Email id"
             />
           </div>
           <button
             type="submit"
-            className="w-full  py-2.5 mt-3 rounded-full bg-gradient-to-r from-indigo-500 to-indigo-900 text-white"
+            className="w-full py-2.5 mt-3 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-400 text-white font-bold shadow-md hover:scale-105 hover:shadow-xl transition-all text-lg"
           >
             Submit
           </button>
         </form>
       )}
-
-      {/* otp input */}
       {isEmailSend && !isOtpSubmitted && (
-        <form onSubmit={onSubmitOtp} className="bg-slate-900 p-10 rounded-lg shadow-lg w-96 text-sm">
-          <h1 className="text-2xl font-semibold text-white text-center mb-4">
+        <form onSubmit={onSubmitOtp} className="bg-white/30 backdrop-blur-xl p-10 rounded-3xl shadow-2xl w-96 border-2 border-gradient-to-r from-indigo-400 via-purple-400 to-pink-300 text-sm">
+          <h1 className="text-2xl font-extrabold text-center mb-4 bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-400 bg-clip-text text-transparent animate-gradient-x">
             Reset Password OTP
           </h1>
-        <p className="text-center mb-6 text-indigo-300">
-          Enter the 6 digit OTP sent to your email
-        </p>
-        <div className="flex justify-between mb-8" onPaste={handlePaste}>
-          {/* The below code is creating an array of 6 numbers, and then for each number in the array, 
-          it is creating an input field with the type of number. The result is 6 input fields, that 
-          allows the user to input the 6 digit OTP sent to their email. */}
-          {Array(6)
-            .fill(0)
-            .map((_, index) => (
+          <p className="text-center mb-6 text-indigo-600/80">
+            Enter the 6 digit OTP sent to your email
+          </p>
+          <div className="flex justify-between mb-8 gap-2" onPaste={handlePaste}>
+            {Array(6).fill(0).map((_, index) => (
               <input
                 type="text"
                 maxLength="1"
                 key={index}
                 required
-                className="w-12 h-12  text-center text-xl  rounded-full bg-[#333A5C] text-white"
-                ref={(e) => (inputRefs.current[index] = e)} //ref is used to access the input element
-                onInput={(e) => {
-                  handleInput(e, index);
-                }}
-                onKeyDown={(e) => {
-                  handleKeydown(e, index);
-                }}
+                className="w-12 h-12 text-center text-xl rounded-full bg-white/60 border-2 border-indigo-200 shadow-inner focus:ring-2 focus:ring-pink-300 text-indigo-900 outline-none transition-all duration-200 hover:scale-105"
+                ref={(e) => (inputRefs.current[index] = e)}
+                onInput={(e) => handleInput(e, index)}
+                onKeyDown={(e) => handleKeydown(e, index)}
               />
             ))}
-          {/* <input type="number" className='w-full px-5 py-2.5 rounded-full bg-[#333A5C] text-white' />
-          <input type="number" className='w-full px-5 py-2.5 rounded-full bg-[#333A5C] text-white' />
-          <input type="number" className='w-full px-5 py-2.5 rounded-full bg-[#333A5C] text-white' />
-          <input type="number" className='w-full px-5 py-2.5 rounded-full bg-[#333A5C] text-white' />
-          <input type="number" className='w-full px-5 py-2.5 rounded-full bg-[#333A5C] text-white' />
-          <input type="number" className='w-full px-5 py-2.5 rounded-full bg-[#333A5C] text-white' /> */}
-        </div>
-        <button
-          type="submit"
-          className="w-full py-2.5 rounded-full bg-gradient-to-r from-indigo-500 to-indigo-900 text-white"
-        >
-          Submit
-        </button>
-      </form>
+          </div>
+          <button
+            type="submit"
+            className="w-full py-2.5 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-400 text-white font-bold shadow-md hover:scale-105 hover:shadow-xl transition-all text-lg"
+          >
+            Submit
+          </button>
+        </form>
       )}
-
-      {/* enterPassword */}
       {isOtpSubmitted && (
-      <form onSubmit={onSubmitNewPassword} className="bg-slate-900 p-10 rounded-lg shadow-lg w-96 text-sm">
-        <h1 className="text-2xl font-semibold text-white text-center mb-4">
-          New Password
-        </h1>
-        <p className="text-center mb-6 text-indigo-300">
-          Enter the new password
-        </p>
-        <div className="mb-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#333A5C] text-white">
-          <img src={assets.lock_icon} alt="" className="w-3 h-3" />
-          <input
-            type="password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            required
-            className="bg-transparent outline-none text-whites"
-            placeholder="New Password"
-          />
-        </div>
-        <button
-          type="submit"
-          className="w-full  py-2.5 mt-3 rounded-full bg-gradient-to-r from-indigo-500 to-indigo-900 text-white"
-        >
-          Submit
-        </button>
-      </form>
+        <form onSubmit={onSubmitNewPassword} className="bg-white/30 backdrop-blur-xl p-10 rounded-3xl shadow-2xl w-96 border-2 border-gradient-to-r from-indigo-400 via-purple-400 to-pink-300 text-sm">
+          <h1 className="text-2xl font-extrabold text-center mb-4 bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-400 bg-clip-text text-transparent animate-gradient-x">
+            New Password
+          </h1>
+          <p className="text-center mb-6 text-indigo-600/80">
+            Enter the new password
+          </p>
+          <div className="mb-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-white/60 border border-indigo-200 shadow-inner focus-within:ring-2 focus-within:ring-pink-300 text-indigo-900">
+            <img src={assets.lock_icon} alt="" className="w-4 h-4" />
+            <input
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              required
+              className="bg-transparent outline-none text-indigo-900 placeholder-indigo-400 font-medium flex-1"
+              placeholder="New Password"
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full py-2.5 mt-3 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-400 text-white font-bold shadow-md hover:scale-105 hover:shadow-xl transition-all text-lg"
+          >
+            Submit
+          </button>
+        </form>
       )}
     </div>
   );

@@ -41,11 +41,11 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-full flex justify-between items-center p-4 sm:p-6 md:p-8 lg:p-10 sm:px-24 absolute top-0">
+    <div className="w-full flex justify-between items-center p-2 sm:p-6 md:p-8 lg:p-10 sm:px-24 absolute top-0">
       <img
-        src={assets.logo}
+        src={assets.logoImg}
         alt="Logo"
-        className="w-28 sm:w-32 md:w-40 lg:w-52"
+        className="w-16 sm:w-20 md:w-24 lg:w-28"
       />
       {userData && userData.name ? (
         <div className="w-8 h-8 flex justify-center items-center rounded-full bg-black text-white relative group">
@@ -70,13 +70,13 @@ const Navbar = () => {
       ) : (
         <button
           onClick={() => navigate("/login")}
-          className="flex items-center gap-2 border border-gray-500 rounded-full px-6 py-2 cursor-pointer text-gray-800 hover:bg-gray-100 transition-all"
+          className="flex items-center gap-2 border border-gray-500 bg-gray-100 rounded-full px-6 py-2 cursor-pointer text-gray-800 hover:bg-purple-100 hover:text-purple-800 transition-all"
         >
           LogIn
           <img
             src={assets.arrow_icon}
             alt="Arrow"
-            className="w-4 sm:w-5 md:w-6 lg:w-8"
+            className="w-2 sm:w-3 md:w-4 lg:w-6"
           />
         </button>
       )}
