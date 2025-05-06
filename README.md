@@ -113,12 +113,3 @@ A **secure** and **scalable** authentication system built using **MongoDB, Expre
 
 If you would like to contribute to this project, please fork the repository and submit a pull request.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Special thanks to the creators of MERN stack technologies
-- Thanks to the contributors of open-source libraries used in this project
-- Thanks to the community for providing valuable feedback and support
